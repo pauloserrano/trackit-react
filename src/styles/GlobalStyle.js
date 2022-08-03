@@ -54,6 +54,16 @@ const GlobalStyle = createGlobalStyle`
     * {
         box-sizing: border-box;
     }
+
+    body{
+        font-family: 'Lexend Deca', sans-serif;
+    }
+
+    .root{
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
 `
 
 export default GlobalStyle
