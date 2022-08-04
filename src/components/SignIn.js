@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ReactComponent as Logo } from '../assets/images/logo.svg'
 import { SignIn as StyledSignIn } from '../styles'
@@ -6,9 +7,11 @@ import Form from './common/Form'
 import Button from './common/Button'
 
 const SignIn = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
   const handleSubmit = async ({ email, password }) => {
+    setIsLoading(true)
     try{
       const response = await login({email, password})
       navigate('/habitos', { state: response.data })
@@ -16,6 +19,7 @@ const SignIn = () => {
     } catch(err){
       console.log(err)
     }
+    setIsLoading(false)
   }
 
   return (
@@ -28,7 +32,7 @@ const SignIn = () => {
           { name: 'email', type: 'email', placeholder: 'email' },
           { name: 'password', type: 'password', placeholder: 'senha' }
         ]}>
-        <Button type='submit'>Entrar</Button>
+        <Button type='submit' isLoading={isLoading}>Entrar</Button>
       </Form>
       <p onClick={() => navigate('/cadastro')}>Não tem uma conta? Cadastre-se!</p>
     </StyledSignIn>

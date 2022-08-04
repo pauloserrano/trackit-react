@@ -1,21 +1,22 @@
-import styled from 'styled-components'
-import Button from './common/Button'
-import { Form } from '../styles'
 import { useState } from 'react'
+import styled from 'styled-components'
+import { Form } from '../styles'
+import Button from './common/Button'
+import { createHabit } from '../services/api'
 
 // const weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 const weekdays = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado']
 
 const NewHabit = () => {
-    const [isShown, setIsShown] = useState(!false)
+    const [isShown, setIsShown] = useState(false)
     const [formData, setFormData] = useState({ name: '', days: [] })
 
     const handleFormChange = (e) => {
-        let updatedForm
+        // Elements
         const input = e.target
         const label = input.parentElement
         label.classList.toggle('selected')
-
+        
         if (input.type === 'checkbox'){
             const checkboxArray = formData[input.name]
             const filteredArray = checkboxArray.filter(day => day !== input.value)
@@ -23,34 +24,41 @@ const NewHabit = () => {
 
             if (isIncluded){
                 // Removes the value from the array
-                updatedForm = {
+                setFormData(() => ({
                     ...formData,
                     [input.name]: filteredArray
-                }
+                }))
             
             } else {
                 // Adds the value to the array
-                updatedForm = {
+                setFormData(() => ({
                     ...formData,
                     [input.name]: [...formData[input.name], input.value]
-                }
+                }))
             }
         
         } else {
-            updatedForm = {
+            // Updates controlled inputs
+            setFormData(() => ({
                 ...formData,
                 [input.name]: input.value
-            }
+            }))
         }
 
-        setFormData(updatedForm)
-        console.log(updatedForm)
+        console.log(formData)
     }
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault()
-        console.warn('Envio de formulário em construção')
-        resetForm()
+        try{
+            const response = await createHabit(formData)
+            console.log(response)
+            console.warn('Envio de formulário em construção')
+            resetForm()
+
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     const resetForm = () => {
@@ -90,7 +98,7 @@ const NewHabit = () => {
                     ))}
                 </section>
                 <div>
-                    <Button scheme='secondary' onClick={() => setIsShown(false)}>Cancelar</Button>
+                    <Button theme='secondary' onClick={() => setIsShown(false)}>Cancelar</Button>
                     <Button type='submit'>Salvar</Button>
                 </div>
             </Form>

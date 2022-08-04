@@ -1,12 +1,10 @@
-import { useState } from "react";
 import styled from "styled-components";
+import { ThreeDots } from "react-loader-spinner";
 
-const Button = ({ children, scheme='primary', ...otherProps }) => {
-    const [loading, setLoading] = useState(false)
-
+const Button = ({ children, theme='primary', isLoading=false, ...otherProps }) => {
     return (
-        <StyledButton scheme={scheme} onClick={() => setLoading(true)} {...otherProps}>
-            {loading ? 'loading' : children}
+        <StyledButton theme={theme} {...otherProps} >
+            {isLoading ? <ThreeDots color={'#fff'} height={23} width={40} /> : children}
         </StyledButton>
     )
 }
@@ -18,18 +16,22 @@ const StyledButton = styled.button`
     padding: .5em;
     cursor: pointer;
     ${props => {
-        if (props.scheme === 'primary'){
+        if (props.theme === 'primary'){
             return `
                 background-color: #52B6FF;
                 color: #fff;
             `
-        } else if (props.scheme === 'secondary'){
+        } else if (props.theme === 'secondary'){
             return `
                 background-color: #fff;
                 color: #52B6FF;
             `
         }
     }}
+
+    div{
+        justify-content: center;
+    }
 `
 
 export default Button
