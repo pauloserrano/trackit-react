@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import { Form as StyledForm, Button } from '../../styles'
+import { Form as StyledForm } from '../../styles'
 
-const Form = ({ inputs, submitHandler }) => {
+const Form = ({ inputs, submitHandler, children }) => {
     const [formData, setFormData] = useState({ email: 'calvo@minoxidil.com', password: '1234' })
-    const [loading, setLoading] = useState(false)
 
     const handleFormChange = (e) => {
         setFormData(() => ({
@@ -14,18 +13,16 @@ const Form = ({ inputs, submitHandler }) => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
-        setLoading(true)
-
+        
         if (!isFormValid()) {
             return
         }
 
         submitHandler(formData)
-        setLoading(false)
     }
 
     const isFormValid = () => {
-        console.warn('Atenção: a validação do form ainda está pendente!')
+        console.warn('Atenção: a validação do form está pendente!')
         return true
     }
 
@@ -42,9 +39,7 @@ const Form = ({ inputs, submitHandler }) => {
                 onChange={handleFormChange} />
             ))
         }
-        <Button type='submit'>
-            {loading ? 'loading' : 'Entrar'}
-        </Button>
+        {children}
     </StyledForm>
   )
 }

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { ReactComponent as Logo } from '../assets/images/logo.svg'
-import { SignIn } from '../styles'
+import { Button, SignIn } from '../styles'
 import { createAccount } from '../services/api'
 import Form from './common/Form'
 
@@ -9,7 +9,7 @@ const SignUp = () => {
 
   const handleSubmit = async ({ email, password, name, image }) => {
     try{
-      await createAccount({email, password, name, image})
+      await createAccount({ email, password, name, image })
       navigate('/')
     
     } catch (err) {
@@ -21,16 +21,17 @@ const SignUp = () => {
     <SignIn>
       <Logo />
       <h1>TrackIt</h1>
-      <Form 
+      <Form
         submitHandler={handleSubmit}
         inputs={[
           { name: 'email', type: 'email', placeholder: 'email' },
           { name: 'password', type: 'password', placeholder: 'senha' },
           { name: 'name', placeholder: 'nome' },
           { name: 'image', placeholder: 'foto' }
-        ]} 
-      />
-      <p onClick={() => navigate('/')}>Não tem uma conta? Cadastre-se!</p>
+        ]}> 
+        <Button type='submit'>Cadastrar</Button>
+      </Form>
+      <p onClick={() => navigate('/')}>Já tem uma conta? Faça login!</p>
     </SignIn>
   )
 }

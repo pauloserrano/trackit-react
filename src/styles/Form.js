@@ -15,7 +15,7 @@ const StyledForm = styled.form`
     margin: 1em 0;
     width: min(300px, 100%);
 
-    & *:not(:last-child){
+    input:not(:last-child){
         margin-bottom: .5em;
     }
     
@@ -24,6 +24,7 @@ const StyledForm = styled.form`
         border-radius: 5px;
         font-size: 1.2em;
         padding: .5em;
+        color: #666666;
 
         ::placeholder{
             color: #DBDBDB;
