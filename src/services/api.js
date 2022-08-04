@@ -26,4 +26,8 @@ const getHabits = () => {
     return api.get('/habits', config)
 }
 
-export { login, createAccount, createHabit, getHabits }
+const deleteHabit = (id) => {
+    return api.delete(`/habits/${id}`, config)
+}
+
+export { login, createAccount, createHabit, getHabits, deleteHabit }

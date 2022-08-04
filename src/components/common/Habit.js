@@ -1,10 +1,22 @@
 import styled from "styled-components"
 import { Form } from '../../styles'
 import { ReactComponent as DeleteBtn } from '../../assets/images/delete.svg'
+import { deleteHabit } from "../../services/api"
 
 const weekdays = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado']
 
-const Habit = ({name, days, ...otherProps}) => {
+const Habit = ({id, name, days, setHabits, ...otherProps}) => {
+
+    const handleDelete = async () => {
+        try{
+            const response = await deleteHabit(id)
+            setHabits(arr => arr.filter(habit => habit.id !== id))
+            console.log(response)
+            
+        } catch (err){
+            console.log(err)
+        }
+    }
     
   return (
     <Wrapper>
@@ -12,22 +24,22 @@ const Habit = ({name, days, ...otherProps}) => {
             <div>{name}</div>
             <section>
                 {weekdays.map((day, index) => (
-                        <label 
-                            key={index}
-                            className={days.includes(index) && 'selected'}
-                            htmlFor={day}>
-                                {day[0].toUpperCase()}
-                            <input 
-                                type="checkbox" 
-                                name="days"
-                                id={day}
-                                value={index}
-                            />
-                        </label>
+                    <label 
+                        key={index}
+                        className={days.includes(index) && 'selected'}
+                        htmlFor={day}>
+                            {day[0].toUpperCase()}
+                        <input 
+                            type="checkbox" 
+                            name="days"
+                            id={day}
+                            value={index}
+                        />
+                    </label>
                     )
                 )}
             </section>
-            <DeleteBtn/>
+            <DeleteBtn onClick={handleDelete}/>
         </Form>
     </Wrapper>
   )
@@ -59,6 +71,7 @@ const Wrapper = styled.div`
   form {
     width: 100%;
     padding: 16px;
+    margin: .5em;
     border-radius: 5px;
     background-color: #fff;
     position: relative;

@@ -14,14 +14,14 @@ const Home = () => {
     if (state) localStorage.setItem('token', state.token)
     
     getHabits().then(({ data }) => setHabits(data))
-  }, [state])
+  }, [state, habits])
 
   return (
     <StyledHome>
       <NewHabit />
       {!habits.length > 0 
       ? <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
-      : habits.map(({name, days}) => <Habit name={name} days={days}/>)
+      : habits.map(({id, name, days}) => <Habit id={id} name={name} days={days} setHabits={setHabits}/>)
       }
     </StyledHome>
   )

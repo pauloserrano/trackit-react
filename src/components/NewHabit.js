@@ -53,7 +53,6 @@ const NewHabit = () => {
         try{
             const response = await createHabit(formData)
             console.log(response)
-            console.warn('Envio de formulário em construção')
             resetForm()
 
         } catch (err) {
@@ -84,6 +83,7 @@ const NewHabit = () => {
                 <section>
                     {weekdays.map((day, index) => (
                         <label 
+                            className={formData['days'].includes(`${index}`) && 'selected'}
                             key={index}
                             htmlFor={day}>
                                 {day[0].toUpperCase()}
