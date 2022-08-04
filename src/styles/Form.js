@@ -8,14 +8,13 @@ const Form = ({ children, ...otherProps }) => {
   )
 }
 
-
 const StyledForm = styled.form`
     display: flex;
     flex-direction: column;
     margin: 1em 0;
     width: min(300px, 100%);
 
-    input:not(:last-child){
+    input:not(:last-child), label{
         margin-bottom: .5em;
     }
     

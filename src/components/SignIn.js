@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 import { ReactComponent as Logo } from '../assets/images/logo.svg'
-import { SignIn } from '../styles'
+import { SignIn as StyledSignIn } from '../styles'
 import { login } from '../services/api'
 import Form from './common/Form'
 import Button from './common/Button'
 
-const Login = () => {
+const SignIn = () => {
   const navigate = useNavigate()
 
   const handleSubmit = async ({ email, password }) => {
@@ -19,7 +19,7 @@ const Login = () => {
   }
 
   return (
-    <SignIn>
+    <StyledSignIn>
       <Logo />
       <h1>TrackIt</h1>
       <Form 
@@ -31,9 +31,9 @@ const Login = () => {
         <Button type='submit'>Entrar</Button>
       </Form>
       <p onClick={() => navigate('/cadastro')}>Não tem uma conta? Cadastre-se!</p>
-    </SignIn>
+    </StyledSignIn>
   )
 }
 
 
-export default Login
+export default SignIn

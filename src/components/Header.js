@@ -29,6 +29,7 @@ const StyledHeader = styled.header`
   }
 
   img{
+    height: 100%;
     border-radius: 50%;
   }
 `

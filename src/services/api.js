@@ -12,4 +12,12 @@ const createAccount = ({ email, name, image, password }) => {
     return api.post('/auth/sign-up', { email, name, image, password })
 }
 
+const createHabit = ({ name, days }) => {
+    const config = {
+        'Authorization': localStorage.getItem('token')
+    }
+
+    return api.post('/habits', { name, days }, config)
+}
+
 export { createAccount, login }
