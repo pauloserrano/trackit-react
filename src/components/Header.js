@@ -1,14 +1,13 @@
 import styled from 'styled-components'
-import { useGlobalContext } from './context/GlobalContext'
 
 
 const Header = () => {
-  const { user } = useGlobalContext()
+  const userPicture = JSON.parse(localStorage.getItem('user')).image
 
   return (
     <StyledHeader>
       <h1>TrackIt</h1>
-      <img src={user.image} alt="profile" />
+      <img src={userPicture} alt="profile" />
     </StyledHeader>
   )
 }

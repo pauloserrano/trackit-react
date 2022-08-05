@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ReactComponent as Logo } from '../assets/logo.svg'
 import { SignIn as StyledSignIn } from '../styles'
@@ -13,6 +13,14 @@ const SignIn = () => {
   const { setUser } = useGlobalContext()
   const navigate = useNavigate()
 
+  useEffect(() => {
+    const hasToken = JSON.parse(localStorage.getItem('user')).token
+
+    if(hasToken){
+      navigate('/hoje')
+    }
+  }, [])
+
   const handleSubmit = async ({ email, password }) => {
     setIsLoading(true)
 
@@ -21,7 +29,7 @@ const SignIn = () => {
       setUser(response.data)
       
       if (response.data.token) {
-        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('user', JSON.stringify(response.data))
       }
 
       navigate('/hoje')
