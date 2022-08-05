@@ -30,4 +30,12 @@ const deleteHabit = (id) => {
     return api.delete(`/habits/${id}`, config)
 }
 
-export { login, createAccount, createHabit, getHabits, deleteHabit }
+const checkHabit = (id) => {
+    return api.post(`/habits/${id}/check`, {}, config)
+}
+
+const unCheckHabit = (id) => {
+    return api.post(`/habits/${id}/uncheck`, {}, config)
+}
+
+export { login, createAccount, createHabit, getHabits, deleteHabit, checkHabit, unCheckHabit }

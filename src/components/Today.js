@@ -9,6 +9,7 @@ import TodayHabit from './TodayHabit'
 const Today = () => {
   const { user } = useContext(GlobalContext)
   const [habits, setHabits] = useState([])
+  
 
   useEffect(() => {
     if (user.token) {
@@ -18,7 +19,7 @@ const Today = () => {
     getHabits('today')
       .then(({ data }) => setHabits(data))
       .catch(err => console.log(err))
-  }, [])
+  }, [user])
 
   console.log({ user, habits })
   
@@ -26,16 +27,25 @@ const Today = () => {
     <StyledMain>
       <h3>Segunda, 17/05</h3>
       {habits.length > 0 
-        ? habits.map((habit, index) => <TodayHabit key={index} habit={habit}/>)
-        : <p>Nenhum hábito concluído ainda</p>}
+        ? (<>
+            <p>{(habits.filter(habit => habit.done).length / habits.length) * 100}% dos hábitos concluídos</p>
+            {habits.map((habit, index) => (
+              <TodayHabit 
+                key={index} 
+                habit={habit}
+                setHabits={setHabits} />
+            ))}
+          </>)
+        : <p>Nenhum hábito concluído ainda</p>
+      }
     </StyledMain>
   )
 }
 
 const StyledMain = styled(Main)`
-  p{
+  & > p{
     color: #BABABA;
-    margin: 1em 0;
+    margin: .5em 0 1.5em;
   }
 `
 
