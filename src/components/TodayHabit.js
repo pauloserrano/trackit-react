@@ -10,7 +10,7 @@ const TodayHabit = ({ habit, setHabits }) => {
       getHabits('today')
         .then(({ data }) => setHabits(data))
         .catch(err => console.log(err))
-    }, [isChecked])
+    }, [isChecked, getHabits, setHabits])
 
     const handleClick = async () => {
       try{

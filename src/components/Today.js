@@ -4,11 +4,21 @@ import { Main } from '../styles'
 import { useGlobalContext } from './context/GlobalContext'
 import { getHabits } from '../services/api'
 import TodayHabit from './TodayHabit'
-
+import dayjs from 'dayjs'
 
 const Today = () => {
-  let { user, percentage, setPercentage } = useGlobalContext()
+  let { user, percentage, setPercentage, weekdays } = useGlobalContext()
   const [habits, setHabits] = useState([])
+  
+  const day = dayjs()
+  const currentDay = {
+    weekday: weekdays['pt-br'][day.$W],
+    day: day.$D,
+    month: day.$M + 1,
+    formatted: () => (
+      `${currentDay.weekday[0].toUpperCase()}${currentDay.weekday.slice(1)}, ${currentDay.day}/${currentDay.month}`
+    )
+  }
   
 
   useEffect(() => {
@@ -26,7 +36,7 @@ const Today = () => {
   
   return (
     <StyledMain percentage={percentage} habits={habits}>
-      <h3>Segunda, 17/05</h3>
+      <h3>{currentDay.formatted()}</h3>
       {habits.length > 0 
         ? (<>
             <p>{getPercentage()}% dos hábitos concluídos</p>

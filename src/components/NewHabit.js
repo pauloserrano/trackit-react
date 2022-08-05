@@ -3,11 +3,11 @@ import styled from 'styled-components'
 import { Form } from '../styles'
 import Button from './common/Button'
 import { createHabit } from '../services/api'
+import { useGlobalContext } from './context/GlobalContext'
 
-// const weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
-const weekdays = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado']
 
 const NewHabit = ({ setHabits }) => {
+    const { weekdays } = useGlobalContext()
     const [isShown, setIsShown] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({ name: '', days: [] })
@@ -87,7 +87,7 @@ const NewHabit = ({ setHabits }) => {
                     onChange={handleFormChange}
                 />
                 <section>
-                    {weekdays.map((day, index) => (
+                    {weekdays['pt-br'].map((day, index) => (
                         <label 
                             className={formData['days'].includes(index) && 'selected'}
                             key={index}
