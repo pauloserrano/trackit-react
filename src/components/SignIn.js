@@ -26,6 +26,7 @@ const SignIn = () => {
       const response = await login({email, password})
       
       if (response.data) {
+        delete response.data.password
         await localStorage.setItem('user', JSON.stringify(response.data))
         setUserUpdate(true)
       }
