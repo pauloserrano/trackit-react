@@ -11,7 +11,17 @@ const SignIn = styled.main`
   min-height: 100vh;
   background-color: #fff;
   z-index: 2;
-  pointer-events: ${props => props.loading ? 'none' : 'all'};
+  ${props => {
+    if (props.isLoading){
+      return `
+        pointer-events: none;
+        
+        input {
+          background-color: #F2F2F2;
+        }
+      `
+    }
+  }};
 
   h1{
     font-size: 4.5em;

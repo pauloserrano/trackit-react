@@ -1,12 +1,12 @@
 import styled from "styled-components"
 import { Form } from '../../styles'
-import { ReactComponent as DeleteBtn } from '../../assets/images/delete.svg'
+import { ReactComponent as DeleteBtn } from '../../assets/delete.svg'
 import { deleteHabit } from "../../services/api"
+
 
 const weekdays = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado']
 
 const Habit = ({id, name, days, setHabits, ...otherProps}) => {
-
     const handleDelete = async () => {
         try{
             const response = await deleteHabit(id)
@@ -26,7 +26,7 @@ const Habit = ({id, name, days, setHabits, ...otherProps}) => {
                 {weekdays.map((day, index) => (
                     <label 
                         key={index}
-                        className={days.includes(index) && 'selected'}
+                        className={days.includes(index) ? 'selected' : ''}
                         htmlFor={day}>
                             {day[0].toUpperCase()}
                         <input 
@@ -71,7 +71,7 @@ const Wrapper = styled.div`
   form {
     width: 100%;
     padding: 16px;
-    margin: .5em;
+    margin: .5em 0;
     border-radius: 5px;
     background-color: #fff;
     position: relative;

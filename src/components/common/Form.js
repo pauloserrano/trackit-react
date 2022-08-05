@@ -22,7 +22,6 @@ const Form = ({ inputs, submitHandler, children }) => {
     }
 
     const isFormValid = () => {
-        console.warn('Atenção: a validação do form está pendente!')
         return true
     }
 

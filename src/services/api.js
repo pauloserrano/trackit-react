@@ -22,8 +22,8 @@ const createHabit = ({ name, days }) => {
     return api.post('/habits', { name, days }, config)
 }
 
-const getHabits = () => {
-    return api.get('/habits', config)
+const getHabits = (from='') => {
+    return api.get(`/habits/${from}`, config)
 }
 
 const deleteHabit = (id) => {

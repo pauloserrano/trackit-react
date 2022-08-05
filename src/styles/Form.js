@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const Form = ({ children, ...otherProps }) => {
+const Form = ({ isLoading, children, ...otherProps }) => {
   return (
-    <StyledForm { ...otherProps }>
+    <StyledForm isLoading={isLoading} { ...otherProps }>
         {children}
     </StyledForm>
   )
@@ -24,6 +24,14 @@ const StyledForm = styled.form`
         font-size: 1.2em;
         padding: .5em;
         color: #666666;
+        ${props => {
+            if (props.isLoading) {
+                return `
+                    pointer-events: none;
+                    background-color: #F2F2F2;
+                `
+            }
+        }}
 
         ::placeholder{
             color: #DBDBDB;

@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
-import mockURL from '../assets/catanacomics.jpg'
+import { GlobalContext } from './App'
+
 
 const Header = () => {
+  const { user } = useContext(GlobalContext)
+
   return (
     <StyledHeader>
       <h1>TrackIt</h1>
-      <img src={mockURL} alt="profile" />
+      <img src={user.image} alt="profile" />
     </StyledHeader>
   )
 }
@@ -29,7 +32,9 @@ const StyledHeader = styled.header`
   }
 
   img{
-    height: 100%;
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
     border-radius: 50%;
   }
 `

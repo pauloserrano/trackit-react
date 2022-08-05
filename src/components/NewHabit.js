@@ -7,8 +7,9 @@ import { createHabit } from '../services/api'
 // const weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 const weekdays = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado']
 
-const NewHabit = () => {
+const NewHabit = ({ setHabits }) => {
     const [isShown, setIsShown] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({ name: '', days: [] })
 
     const handleFormChange = (e) => {
@@ -19,7 +20,7 @@ const NewHabit = () => {
         
         if (input.type === 'checkbox'){
             const checkboxArray = formData[input.name]
-            const filteredArray = checkboxArray.filter(day => day !== input.value)
+            const filteredArray = checkboxArray.filter(day => day !== Number(input.value))
             const isIncluded = filteredArray.length !== checkboxArray.length
 
             if (isIncluded){
@@ -33,7 +34,7 @@ const NewHabit = () => {
                 // Adds the value to the array
                 setFormData(() => ({
                     ...formData,
-                    [input.name]: [...formData[input.name], input.value]
+                    [input.name]: [...formData[input.name], Number(input.value)]
                 }))
             }
         
@@ -50,12 +51,16 @@ const NewHabit = () => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
+        setIsLoading(true)
+
         try{
             const response = await createHabit(formData)
-            console.log(response)
+            setHabits(prev => [...prev, response.data])
             resetForm()
-
+            console.log(response)
+            
         } catch (err) {
+            setIsLoading(false)
             console.log(err)
         }
     }
@@ -71,7 +76,7 @@ const NewHabit = () => {
             <button onClick={() => setIsShown(true)}>+</button>
         </section>
         {isShown && (
-            <Form onSubmit={handleFormSubmit}>
+            <Form onSubmit={handleFormSubmit} isLoading={isLoading}>
                 <input 
                     required
                     type="text" 
@@ -83,7 +88,7 @@ const NewHabit = () => {
                 <section>
                     {weekdays.map((day, index) => (
                         <label 
-                            className={formData['days'].includes(`${index}`) && 'selected'}
+                            className={formData['days'].includes(index) && 'selected'}
                             key={index}
                             htmlFor={day}>
                                 {day[0].toUpperCase()}
@@ -99,7 +104,7 @@ const NewHabit = () => {
                 </section>
                 <div>
                     <Button theme='secondary' onClick={() => setIsShown(false)}>Cancelar</Button>
-                    <Button type='submit'>Salvar</Button>
+                    <Button type='submit' isLoading={isLoading}>Salvar</Button>
                 </div>
             </Form>
         )}
@@ -110,12 +115,14 @@ const NewHabit = () => {
 const Wrapper = styled.div`
     width: 100%;
 
-  section{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: fit-content;
-    width: 100%;
+    & > section{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: fit-content;
+        width: 100%;
+        margin-bottom: 1em;
+    
     
     h3{
       color: #126BA5;
@@ -191,7 +198,6 @@ const Wrapper = styled.div`
         }
     }
   }
-
 `
 
 export default NewHabit

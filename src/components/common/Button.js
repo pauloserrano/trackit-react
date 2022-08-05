@@ -3,7 +3,7 @@ import { ThreeDots } from "react-loader-spinner";
 
 const Button = ({ children, theme='primary', isLoading=false, ...otherProps }) => {
     return (
-        <StyledButton theme={theme} {...otherProps} >
+        <StyledButton theme={theme} isLoading={isLoading} {...otherProps} >
             {isLoading ? <ThreeDots color={'#fff'} height={23} width={40} /> : children}
         </StyledButton>
     )
@@ -28,6 +28,7 @@ const StyledButton = styled.button`
             `
         }
     }}
+    opacity: ${props => props.isLoading ? '0.7' : '1'};
 
     div{
         justify-content: center;
