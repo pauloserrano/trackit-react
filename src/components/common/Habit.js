@@ -9,9 +9,8 @@ const weekdays = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', '
 const Habit = ({id, name, days, setHabits, ...otherProps}) => {
     const handleDelete = async () => {
         try{
-            const response = await deleteHabit(id)
+            await deleteHabit(id)
             setHabits(arr => arr.filter(habit => habit.id !== id))
-            console.log(response)
             
         } catch (err){
             console.log(err)

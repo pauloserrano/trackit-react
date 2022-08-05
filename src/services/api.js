@@ -1,8 +1,10 @@
 import axios from 'axios'
 
-const config = {
-    headers:{
-        'Authorization': `Bearer ${JSON.parse(localStorage.getItem('user')).token}`
+const getConfig = () => {
+    return {
+        headers:{
+            'Authorization': `Bearer ${JSON.parse(localStorage.getItem('user')).token}`
+        }
     }
 }
 
@@ -19,23 +21,23 @@ const createAccount = ({ email, name, image, password }) => {
 }
 
 const createHabit = ({ name, days }) => {
-    return api.post('/habits', { name, days }, config)
+    return api.post('/habits', { name, days }, getConfig())
 }
 
 const getHabits = (from='') => {
-    return api.get(`/habits/${from}`, config)
+    return api.get(`/habits/${from}`, getConfig())
 }
 
 const deleteHabit = (id) => {
-    return api.delete(`/habits/${id}`, config)
+    return api.delete(`/habits/${id}`, getConfig())
 }
 
 const checkHabit = (id) => {
-    return api.post(`/habits/${id}/check`, {}, config)
+    return api.post(`/habits/${id}/check`, {}, getConfig())
 }
 
 const unCheckHabit = (id) => {
-    return api.post(`/habits/${id}/uncheck`, {}, config)
+    return api.post(`/habits/${id}/uncheck`, {}, getConfig())
 }
 
 export { login, createAccount, createHabit, getHabits, deleteHabit, checkHabit, unCheckHabit }

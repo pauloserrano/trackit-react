@@ -5,31 +5,26 @@ import { SignIn as StyledSignIn } from '../styles'
 import { login } from '../services/api'
 import Form from './common/Form'
 import Button from './common/Button'
-import { useGlobalContext } from './context/GlobalContext'
 
 
 const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false)
-  const { setUser } = useGlobalContext()
   const navigate = useNavigate()
 
   useEffect(() => {
-    const hasToken = JSON.parse(localStorage.getItem('user')).token
-
-    if(hasToken){
+    if(localStorage.getItem('user')){
       navigate('/hoje')
     }
-  }, [])
+  }, [navigate])
 
   const handleSubmit = async ({ email, password }) => {
     setIsLoading(true)
 
     try{
       const response = await login({email, password})
-      setUser(response.data)
       
-      if (response.data.token) {
-        localStorage.setItem('user', JSON.stringify(response.data))
+      if (response.data) {
+        await localStorage.setItem('user', JSON.stringify(response.data))
       }
 
       navigate('/hoje')
@@ -37,7 +32,6 @@ const SignIn = () => {
     } catch(err){
       alert('email e/ou senha inválidos!')
       setIsLoading(false)
-      console.log(err)
     }
   }
 

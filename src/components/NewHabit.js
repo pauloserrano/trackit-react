@@ -45,8 +45,6 @@ const NewHabit = ({ setHabits }) => {
                 [input.name]: input.value
             }))
         }
-
-        console.log(formData)
     }
 
     const handleFormSubmit = async (e) => {
@@ -57,7 +55,6 @@ const NewHabit = ({ setHabits }) => {
             const response = await createHabit(formData)
             setHabits(prev => [...prev, response.data])
             resetForm()
-            console.log(response)
             
         } catch (err) {
             console.log(err)
@@ -87,21 +84,24 @@ const NewHabit = ({ setHabits }) => {
                     onChange={handleFormChange}
                 />
                 <section>
-                    {weekdays['pt-br'].map((day, index) => (
-                        <label 
-                            className={formData['days'].includes(index) && 'selected'}
-                            key={index}
-                            htmlFor={day}>
-                                {day[0].toUpperCase()}
-                            <input 
-                                type="checkbox" 
-                                name="days" 
-                                id={day}
-                                value={index} 
-                                onChange={handleFormChange}
-                            />
-                        </label>
-                    ))}
+                    {weekdays['pt-br'].map((day, index) => {
+                        const isSelected = formData['days'].includes(index) ? 'selected' : ''
+                        return (
+                            <label 
+                                className={isSelected}
+                                key={index}
+                                htmlFor={day}>
+                                    {day[0].toUpperCase()}
+                                <input 
+                                    type="checkbox" 
+                                    name="days" 
+                                    id={day}
+                                    value={index} 
+                                    onChange={handleFormChange}
+                                />
+                            </label>
+                        )
+                    })}
                 </section>
                 <div>
                     <Button theme='secondary' onClick={() => setIsShown(false)}>Cancelar</Button>

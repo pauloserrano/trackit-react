@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 
 const Header = () => {
-  const userPicture = JSON.parse(localStorage.getItem('user')).image
+  const user = localStorage.getItem('user')
+  const userPicture = user ? JSON.parse(user).image : ''
 
   return (
     <StyledHeader>

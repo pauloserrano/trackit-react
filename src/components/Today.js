@@ -7,7 +7,7 @@ import TodayHabit from './TodayHabit'
 import dayjs from 'dayjs'
 
 const Today = () => {
-  let { user, percentage, setPercentage, weekdays } = useGlobalContext()
+  let { percentage, setPercentage, weekdays } = useGlobalContext()
   const [habits, setHabits] = useState([])
   
   const day = dayjs()
@@ -19,6 +19,10 @@ const Today = () => {
       `${currentDay.weekday[0].toUpperCase()}${currentDay.weekday.slice(1)}, ${currentDay.day}/${currentDay.month}`
     )
   }
+
+  useEffect(() => {
+    setPercentage(((habits.filter(habit => habit.done).length / habits.length) * 100).toFixed(0))
+  }, [habits, setPercentage])
   
 
   useEffect(() => {
@@ -27,19 +31,13 @@ const Today = () => {
       .catch(err => console.log(err))
   }, [])
 
-  const getPercentage = () => {
-    setPercentage(((habits.filter(habit => habit.done).length / habits.length) * 100).toFixed(0))
-    return percentage
-  }
 
-  console.log({ user, habits })
-  
   return (
     <StyledMain percentage={percentage} habits={habits}>
       <h3>{currentDay.formatted()}</h3>
       {habits.length > 0 
         ? (<>
-            <p>{getPercentage()}% dos hábitos concluídos</p>
+            <p>{percentage}% dos hábitos concluídos</p>
             {habits.map((habit, index) => (
               <TodayHabit 
                 key={index} 

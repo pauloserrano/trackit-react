@@ -10,17 +10,15 @@ const TodayHabit = ({ habit, setHabits }) => {
       getHabits('today')
         .then(({ data }) => setHabits(data))
         .catch(err => console.log(err))
-    }, [isChecked, getHabits, setHabits])
+    }, [isChecked, setHabits])
 
     const handleClick = async () => {
       try{
         if (isChecked){
-          const response = await unCheckHabit(habit.id)
-          console.log(response)
+          await unCheckHabit(habit.id)
         
         } else{
-          const response = await checkHabit(habit.id)
-          console.log(response)
+          await checkHabit(habit.id)
         }
         setIsChecked(!isChecked)
       
