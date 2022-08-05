@@ -8,13 +8,14 @@ const useGlobalContext = () => {
 
 const GlobalProvider = ({ children }) => {
   const [percentage, setPercentage] = useState(0)
+  const [userUpdate, setUserUpdate] = useState(false)
   const weekdays = {
     "pt-br": ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'],
     "en": ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
   }
 
   return (
-    <GlobalContext.Provider value={{ weekdays, percentage, setPercentage }}>
+    <GlobalContext.Provider value={{ userUpdate, setUserUpdate, weekdays, percentage, setPercentage }}>
         {children}
     </GlobalContext.Provider>
   )

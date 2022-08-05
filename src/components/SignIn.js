@@ -5,10 +5,12 @@ import { SignIn as StyledSignIn } from '../styles'
 import { login } from '../services/api'
 import Form from './common/Form'
 import Button from './common/Button'
+import { useGlobalContext } from './context/GlobalContext'
 
 
 const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false)
+  let { setUserUpdate } = useGlobalContext()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -25,6 +27,7 @@ const SignIn = () => {
       
       if (response.data) {
         await localStorage.setItem('user', JSON.stringify(response.data))
+        setUserUpdate(true)
       }
 
       navigate('/hoje')

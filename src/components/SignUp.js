@@ -17,6 +17,7 @@ const SignUp = () => {
       navigate('/')
     
     } catch (err) {
+      alert('Conta já cadastrada, por favor utilize outro email')
       setIsLoading(false)
       console.log(err)
     }

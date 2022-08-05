@@ -1,9 +1,18 @@
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useGlobalContext } from './context/GlobalContext'
 
 
 const Header = () => {
+  const { userUpdate } = useGlobalContext()
+  const [userPicture, setUserPicture] = useState('')
   const user = localStorage.getItem('user')
-  const userPicture = user ? JSON.parse(user).image : ''
+
+  useEffect(() => {
+    if (user){
+      setUserPicture(JSON.parse(user).image)
+    }
+  }, [userUpdate, user])
 
   return (
     <StyledHeader>
