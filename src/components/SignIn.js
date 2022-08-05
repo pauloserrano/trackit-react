@@ -1,16 +1,16 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ReactComponent as Logo } from '../assets/logo.svg'
 import { SignIn as StyledSignIn } from '../styles'
 import { login } from '../services/api'
 import Form from './common/Form'
 import Button from './common/Button'
-import { GlobalContext } from './App'
+import { useGlobalContext } from './context/GlobalContext'
 
 
 const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false)
-  const { setUser } = useContext(GlobalContext)
+  const { setUser } = useGlobalContext()
   const navigate = useNavigate()
 
   const handleSubmit = async ({ email, password }) => {
@@ -19,6 +19,11 @@ const SignIn = () => {
     try{
       const response = await login({email, password})
       setUser(response.data)
+      
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token)
+      }
+
       navigate('/hoje')
     
     } catch(err){

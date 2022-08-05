@@ -53,6 +53,8 @@ const Wrapper = styled.div`
         font-size: 20px;
         color: #666666;
         margin-bottom: .5em;
+        word-break: break-all;
+        max-width: 90%;
     }
 
   section{

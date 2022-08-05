@@ -60,9 +60,10 @@ const NewHabit = ({ setHabits }) => {
             console.log(response)
             
         } catch (err) {
-            setIsLoading(false)
             console.log(err)
         }
+        
+        setIsLoading(false)
     }
 
     const resetForm = () => {

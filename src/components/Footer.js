@@ -1,30 +1,31 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { useGlobalContext } from './context/GlobalContext';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const Footer = () => {
   const navigate = useNavigate()
-  const percentage = 66
+  let { percentage } = useGlobalContext()
 
   return (
     <StyledFooter>
       <button onClick={() => navigate('/habitos')}>Hábitos</button>
-      <button onClick={() => navigate('/hoje')}>Hoje
-        {/* <CircularProgressbar
+      <button className='progress-bar' onClick={() => navigate('/hoje')}>
+        <CircularProgressbar
           value={percentage}
           text={'Hoje'}
           background
           backgroundPadding={6}
           styles={buildStyles({
-            backgroundColor: "#3e98c7",
+            backgroundColor: "#52B6FF",
             textSize: "24px",
             textColor: "#fff",
             pathColor: "#fff",
             trailColor: "transparent"
           })}
-        /> */}
+        />
       </button>
       <button onClick={() => navigate('/historico')}>Histórico</button>
     </StyledFooter>
@@ -42,18 +43,24 @@ const StyledFooter = styled.footer`
   z-index: 1;
 
   button{
-    position: relative;
     justify-self: center;
-    align-self: center;
     background-color: transparent;
     border: none;
     font-size: 18px;
+    width: 100%;
     color: #52B6FF;
     cursor: pointer;
 
-    &:nth-child(2){
-      width: 100px;
-      bottom: 1.5em;
+    &.progress-bar{
+      position: relative;
+
+      svg{
+        position: absolute;
+        bottom: 1em;
+        right: 50%;
+        transform: translateX(50%);
+        width: 90px;
+      }
     }
   }
 `

@@ -17,16 +17,18 @@ const Habits = () => {
   return (
     <Main>
       <NewHabit setHabits={setHabits} />
-      {!habits.length > 0 
-      ? <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
-      : habits.map(({id, name, days}, index) => (
-        <Habit 
-          id={id} 
-          key={index} 
-          name={name} 
-          days={days} 
-          setHabits={setHabits}/>
-        ))
+      {habits.length > 0 
+        ? habits.map(({id, name, days}, index) => (
+          <Habit 
+            id={id} 
+            key={index} 
+            name={name} 
+            days={days} 
+            setHabits={setHabits}/>
+          ))
+        : (<>
+            <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+          </>)
       }
     </Main>
   )

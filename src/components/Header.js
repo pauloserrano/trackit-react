@@ -1,10 +1,9 @@
-import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { GlobalContext } from './App'
+import { useGlobalContext } from './context/GlobalContext'
 
 
 const Header = () => {
-  const { user } = useContext(GlobalContext)
+  const { user } = useGlobalContext()
 
   return (
     <StyledHeader>

@@ -91,10 +91,9 @@ const Wrapper = styled.div`
     padding: 16px;
     background-color: ${props => props.isChecked ? 'var(--color-checked)' : '#EBEBEB'};
     color: #fff;
-    transition: .3s all linear;
+    transition: .2s all ease-in-out;
     cursor: pointer;
   }
-
 `
 
 export default TodayHabit
