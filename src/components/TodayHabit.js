@@ -65,11 +65,11 @@ const Wrapper = styled.div`
       font-size: 14px;
   
       span.record{
-        color: ${props => props.record >= 4 && 'var(--color-checked)'}
+        color: ${props => props.streak >= props.record  && props.streak > 0 ? 'var(--color-checked)' : 'inherit'}
       }
   
       span.streak{
-        color: ${props => props.streak >= 4 && 'var(--color-checked)'}
+        color: ${props => props.isChecked ? 'var(--color-checked)' : 'inherit'}
       }
     }
     

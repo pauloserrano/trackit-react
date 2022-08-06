@@ -55,8 +55,10 @@ const NewHabit = ({ setHabits }) => {
             const response = await createHabit(formData)
             setHabits(prev => [...prev, response.data])
             resetForm()
+            setIsShown(false)
             
         } catch (err) {
+            alert('Houve um problema no envio, por favor confira se tudo está correto e tente novamente.')
             console.log(err)
         }
         
