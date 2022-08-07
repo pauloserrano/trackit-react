@@ -3,12 +3,14 @@ import styled from 'styled-components'
 import { Main } from '../styles'
 import { useGlobalContext } from './context/GlobalContext'
 import { getHabits } from '../services/api'
+import { useNavigate } from 'react-router-dom'
 import TodayHabit from './TodayHabit'
 import dayjs from 'dayjs'
 
 const Today = () => {
-  let { percentage, setPercentage, weekdays } = useGlobalContext()
+  let { user, percentage, setPercentage, weekdays } = useGlobalContext()
   const [habits, setHabits] = useState([])
+  const navigate = useNavigate()
   
   const day = dayjs()
   const currentDay = {
@@ -20,16 +22,24 @@ const Today = () => {
     )
   }
 
+
+  useEffect(() => {
+    if (!user.token) {
+      navigate('/')
+      return
+    }
+
+    getHabits('today')
+      .then(({ data }) => setHabits(data))
+      .catch(err => console.log(err))
+  }, [])
+
+
   useEffect(() => {
     setPercentage(((habits.filter(habit => habit.done).length / habits.length) * 100).toFixed(0))
   }, [habits, setPercentage])
   
 
-  useEffect(() => {
-    getHabits('today')
-      .then(({ data }) => setHabits(data))
-      .catch(err => console.log(err))
-  }, [])
 
 
   return (

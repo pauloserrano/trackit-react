@@ -20,6 +20,7 @@ const SignIn = () => {
     }
   }, [setUser, navigate])
 
+
   const handleSubmit = async ({ email, password }) => {
     setIsLoading(true)
     
@@ -29,6 +30,7 @@ const SignIn = () => {
       if (response.data) {
         delete response.data.password
         await localStorage.setItem('user', JSON.stringify(response.data))
+        setUser(response.data)
         setUserUpdate(true)
         navigate('/hoje')
       }
