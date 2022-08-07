@@ -7,6 +7,7 @@ const useGlobalContext = () => {
 }
 
 const GlobalProvider = ({ children }) => {
+  const [user, setUser] = useState({})
   const [percentage, setPercentage] = useState(0)
   const [userUpdate, setUserUpdate] = useState(false)
   const weekdays = {
@@ -15,7 +16,7 @@ const GlobalProvider = ({ children }) => {
   }
 
   return (
-    <GlobalContext.Provider value={{ userUpdate, setUserUpdate, weekdays, percentage, setPercentage }}>
+    <GlobalContext.Provider value={{ user, setUser, userUpdate, setUserUpdate, weekdays, percentage, setPercentage }}>
         {children}
     </GlobalContext.Provider>
   )

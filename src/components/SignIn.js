@@ -10,18 +10,19 @@ import { useGlobalContext } from './context/GlobalContext'
 
 const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false)
-  let { setUserUpdate } = useGlobalContext()
+  let { setUser, setUserUpdate } = useGlobalContext()
   const navigate = useNavigate()
 
   useEffect(() => {
     if(localStorage.getItem('user')){
+      setUser(JSON.parse(localStorage.getItem('user')))
       navigate('/hoje')
     }
-  }, [navigate])
+  }, [setUser, navigate])
 
   const handleSubmit = async ({ email, password }) => {
     setIsLoading(true)
-
+    
     try{
       const response = await login({email, password})
       
@@ -29,9 +30,8 @@ const SignIn = () => {
         delete response.data.password
         await localStorage.setItem('user', JSON.stringify(response.data))
         setUserUpdate(true)
+        navigate('/hoje')
       }
-
-      navigate('/hoje')
     
     } catch(err){
       alert('email e/ou senha inválidos!')

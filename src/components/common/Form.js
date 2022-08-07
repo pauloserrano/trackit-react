@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Form as StyledForm } from '../../styles'
 
 const Form = ({ inputs, submitHandler, children }) => {
-    const [formData, setFormData] = useState({ email: 'calvo@minoxidil.com', password: '1234' })
+    const [formData, setFormData] = useState({ email: '', password: '' })
 
     const handleFormChange = (e) => {
         setFormData(() => ({
